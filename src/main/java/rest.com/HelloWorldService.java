@@ -4,7 +4,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
-
 import java.io.File;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -37,5 +36,15 @@ public class HelloWorldService {
 		return response.build();
 
 	}
+
+	/*@GET
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getHeader("User-Agent").indexOf("Mobile") != -1) {
+			//you're in mobile land
+		} else {
+			//nope, this is probably a desktop
+		}
+	}*/
+
 }
 
