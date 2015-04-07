@@ -60,7 +60,7 @@ public class WebService {
 	public Response addUser(@Context HttpHeaders headers) {
 
 
-
+//nem
 		for(String header : headers.getRequestHeaders().keySet()){
 		System.out.println(header);
 
