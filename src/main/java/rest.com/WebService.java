@@ -46,11 +46,10 @@ public class WebService {
 
 	}
 
-	@POST
+	@GET
 	@Path("/device")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_HTML)
-	public Response ajaxResponse(String s,@CookieParam("screen-width")Cookie cookie){
+	public Response ajaxResponse(@CookieParam("screen-width")Cookie cookie){
 
 		Response.ResponseBuilder builder;
 
