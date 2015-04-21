@@ -22,9 +22,10 @@
     </content>
     <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" scope="TEST" name="Maven: junit:junit:4.8.2" level="project" />
-    <orderEntry type="library" exported="" name="Maven: com.sun.jersey:jersey-server:1.8" level="project" />
-    <orderEntry type="library" exported="" name="Maven: asm:asm:3.1" level="project" />
-    <orderEntry type="library" exported="" name="Maven: com.sun.jersey:jersey-core:1.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.2" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-server:1.8" level="project" />
+    <orderEntry type="library" name="Maven: asm:asm:3.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.8" level="project" />
+    <orderEntry type="library" name="jQuery-2.0.0" level="application" />
   </component>
 </module>
