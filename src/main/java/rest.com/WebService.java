@@ -1,19 +1,10 @@
 package rest.com;
  
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
-import java.io.File;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.ResponseBuilder;
+import java.io.File;
 
-//import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-//import javax.ws.rs.Path;
-//import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 
 @Path("/hello")
 public class WebService {
@@ -37,7 +28,7 @@ public class WebService {
 
 		File file = new File(FILE_PATH);
 
-		ResponseBuilder response = Response.ok((Object) file);
+		ResponseBuilder response = Response.ok(file);
 		response.header("Content-Disposition",
 				"attachment; filename=image_from_server.png");
 		return response.build();
@@ -50,32 +41,44 @@ public class WebService {
 	public Response addUser(@HeaderParam("user-agent") String userAgent) {
 
 		return Response.status(200)
-				.entity("addUser is called, userAgent : " + userAgent)
+				.entity("userAgent : " + userAgent)
 				.build();
 
 	}
+
+	@POST
+	@Path("/device")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
+	public Response ajaxResponse(String s,@CookieParam("screen-width")Cookie cookie){
+
+		Response.ResponseBuilder builder;
+
+		builder = Response.ok(cookie.getValue(),MediaType.TEXT_HTML);
+		builder.header("Access-Control-Allow-Origin", "*");
+		builder.header("Access-Control-Max-Age", "3600");
+		builder.header("Access-Control-Allow-Methods", "POST");
+		builder.header(
+				"Access-Control-Allow-Headers",
+				"X-Requested-With,Host,User-Agent,Accept,Accept-Language,Accept-Encoding,Accept-Charset,Keep-Alive,Connection,Referer,Origin");
+		return builder.build();
+	}
+
 
 	@GET
 	@Path("/context")
 	public Response addUser(@Context HttpHeaders headers) {
 
-
-//nem
 		for(String header : headers.getRequestHeaders().keySet()){
 		System.out.println(header);
 
 
 		}
 
-
-
 		String userAgent = headers.getRequestHeader("user-agent").get(0);
 
 		return Response.status(200)
 				.entity("addUser is called, userAgent : " + userAgent)
 				.build();
-
 	}
-
 }
-

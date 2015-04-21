@@ -1,0 +1,63 @@
+<html>
+<head>
+    <script type="text/javascript" src="JS/cache.js" ></script>
+    <script type="text/javascript" src="JS/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" >
+        function setCookie(){
+
+            if(navigator.cookieEnabled)
+            {
+                var date = new Date();
+
+                date.setTime(date.getTime()+ (3 * 24 * 60 * 60 * 1000));
+
+                var expiers = "; expiers="+ date.toUTCString();
+
+                document.cookie = "screen-width="+ screen.width + expiers ;
+
+            }
+
+        }
+
+        function getCookie()
+        {
+            var cookie = document.cookie.split(';');
+
+            return cookie[0];
+        }
+
+        function checkCookie()
+        {
+            var cookie = getCookie();
+
+            if(cookie == "")
+            {
+                setCookie();
+
+                location.reload(true);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "rest/hello/device",
+                data:JSON.stringify("hello"),
+                dataType:'json',
+                contentType:'application/json',
+                success:function(msg){
+                    document.getElementById("device").innerHTML = msg;
+                },
+                failure: function (){
+                    document.getElementById("device").innerHTML = "Error";
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+<h1>Device Detecting</h1>
+
+<p id="device"></p>
+
+</body>
+</html>
