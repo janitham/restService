@@ -21,19 +21,19 @@ public class WebService {
 
 		Response.ResponseBuilder builder;
 
-		double width = Double.parseDouble(widthCookie.getValue())/96;
-		double height = Double.parseDouble(heightCookie.getValue())/96;
+		double width = Double.parseDouble(widthCookie.getValue());
+		double height = Double.parseDouble(heightCookie.getValue());
 		double diagonal = Math.sqrt((width*width)+(height*height));
 
 		width = Math.round(width *100.0)/100;
 		height = Math.round(height *100.0)/100;
 
 		String device = "Unidentified";
-		if(diagonal < 6)
+		if(diagonal < 7)
 		{
 			device = "Mobile";
 		}
-		else if(diagonal < 11)
+		else if(diagonal < 13)
 		{
 			device = "Tablet";
 		}
