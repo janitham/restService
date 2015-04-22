@@ -1,59 +1,49 @@
 package rest.com;
  
+import com.sun.javafx.scene.layout.region.Margins;
+import sun.org.mozilla.javascript.internal.json.JsonParser;
+import sun.plugin2.message.Conversation;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import java.io.File;
+import java.util.*;
 
 
-@Path("/hello")
+@Path("/captcha")
 public class WebService {
-
-	private static final String FILE_PATH = "C:\\image.jpg";
-
-	@GET
-	@Path("/{param}")
-	public Response getMsg(@PathParam("param") String msg) {
- 
-		String output = "Jersey say1 : " + msg;
- 
-		return Response.status(200).entity(output).build();
-
-	}
-
-	@GET
-	@Path("/get")
-	@Produces("image/jpg")
-	public Response getFile() {
-
-		File file = new File(FILE_PATH);
-
-		ResponseBuilder response = Response.ok(file);
-		response.header("Content-Disposition",
-				"attachment; filename=image_from_server.png");
-		return response.build();
-
-	}
-
-	//In this example, it gets the browser “user-agent” from request header.
-	@GET
-	@Path("/useragent")
-	public Response addUser(@HeaderParam("user-agent") String userAgent) {
-
-		return Response.status(200)
-				.entity("userAgent : " + userAgent)
-				.build();
-
-	}
 
 	@GET
 	@Path("/device")
 	@Produces(MediaType.TEXT_HTML)
-	public Response ajaxResponse(@CookieParam("screen-width")Cookie cookie){
+	public Response ajaxResponse(@CookieParam("screen-width")Cookie widthCookie, @CookieParam("isTouch")Cookie isTouchCookie, @CookieParam("screen-height")Cookie heightCookie){
 
 		Response.ResponseBuilder builder;
 
-		builder = Response.ok(cookie.getValue(),MediaType.TEXT_HTML);
+		double width = Double.parseDouble(widthCookie.getValue())/96;
+		double height = Double.parseDouble(heightCookie.getValue())/96;
+		double diagonal = Math.sqrt((width*width)+(height*height));
+
+		width = Math.round(width *100.0)/100;
+		height = Math.round(height *100.0)/100;
+
+		String device = "Unidentified";
+		if(diagonal < 6)
+		{
+			device = "Mobile";
+		}
+		else if(diagonal < 11)
+		{
+			device = "Tablet";
+		}
+		else
+		{
+			device = "PC";
+		}
+
+		String response = device +";"+width+";"+height+";"+isTouchCookie.getValue();
+		builder = Response.ok(response,MediaType.TEXT_HTML);
 		builder.header("Access-Control-Allow-Origin", "*");
 		builder.header("Access-Control-Max-Age", "3600");
 		builder.header("Access-Control-Allow-Methods", "POST");
@@ -61,23 +51,5 @@ public class WebService {
 				"Access-Control-Allow-Headers",
 				"X-Requested-With,Host,User-Agent,Accept,Accept-Language,Accept-Encoding,Accept-Charset,Keep-Alive,Connection,Referer,Origin");
 		return builder.build();
-	}
-
-
-	@GET
-	@Path("/context")
-	public Response addUser(@Context HttpHeaders headers) {
-
-		for(String header : headers.getRequestHeaders().keySet()){
-		System.out.println(header);
-
-
-		}
-
-		String userAgent = headers.getRequestHeader("user-agent").get(0);
-
-		return Response.status(200)
-				.entity("addUser is called, userAgent : " + userAgent)
-				.build();
 	}
 }

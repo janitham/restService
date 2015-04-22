@@ -30,6 +30,14 @@
       <artifactId>jersey-server</artifactId>
       <version>1.8</version>
     </dependency>
+
+      <dependency>
+        <groupId>com.51degrees</groupId>
+        <artifactId>51Degrees.detection.core </artifactId>
+        <version>3.1.4.9</version>
+      </dependency>
+      <!-- etc/....-->
+
   </dependencies>
 
   <build>
