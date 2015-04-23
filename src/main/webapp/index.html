@@ -13,7 +13,7 @@
             {
                 var date = new Date();
 
-                date.setTime(date.getTime()+ (3 * 24 * 60 * 60 * 1000));
+                date.setTime(date.getTime()+ (1000));
 
                 var expiers = "; expiers="+ date.toUTCString();
 
@@ -32,13 +32,15 @@
         $(document).ready(function() {
 
 
-            if(getCookie() != 3) {
-                var screenWidth = screen.width / document.getElementById("dpi").offsetWidth;
-                var screenHeight = screen.height / document.getElementById("dpi").offsetHeight;
+            if(getCookie() != 4) {
+                var screenWidth = screen.width;
+                var screenHeight = screen.height;
+                var pixelDepth = screen.pixelDepth;
                 var isTouch = Modernizr.touch;
 
                 setCookie("screen-width", screenWidth);
                 setCookie("screen-height", screenHeight);
+                setCookie("pixelDepth", pixelDepth);
                 setCookie("isTouch", isTouch);
 
                 location.reload(true);
@@ -52,8 +54,8 @@
                 success:function(msg){
                     var info = msg.split(';');
                     document.getElementById("device").innerHTML = "Your Device is a : "+ info[0];
-                    document.getElementById("width").innerHTML = "Screen Width : " +info[1]+"inch";
-                    document.getElementById("height").innerHTML = "Screen Height :"+ info[2]+"inch";
+                    document.getElementById("width").innerHTML = "Screen Resolution : " +info[1];
+                    document.getElementById("height").innerHTML = "Pixel Depth :"+ info[2];
                     document.getElementById("touch").innerHTML = "Has a touch screen :"+info[3];
                 },
                 failure: function (){

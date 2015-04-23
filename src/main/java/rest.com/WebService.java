@@ -1,14 +1,12 @@
 package rest.com;
  
-import com.sun.javafx.scene.layout.region.Margins;
-import sun.org.mozilla.javascript.internal.json.JsonParser;
-import sun.plugin2.message.Conversation;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import java.io.File;
-import java.util.*;
+import javax.ws.rs.CookieParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 @Path("/captcha")
@@ -17,23 +15,20 @@ public class WebService {
 	@GET
 	@Path("/device")
 	@Produces(MediaType.TEXT_HTML)
-	public Response ajaxResponse(@CookieParam("screen-width")Cookie widthCookie, @CookieParam("isTouch")Cookie isTouchCookie, @CookieParam("screen-height")Cookie heightCookie){
+	public Response ajaxResponse(@CookieParam("screen-width")Cookie widthCookie, @CookieParam("isTouch")Cookie isTouchCookie, @CookieParam("screen-height")Cookie heightCookie, @CookieParam("pixelDepth")Cookie pixelCookie){
 
 		Response.ResponseBuilder builder;
 
-		double width = Double.parseDouble(widthCookie.getValue());
-		double height = Double.parseDouble(heightCookie.getValue());
-		double diagonal = Math.sqrt((width*width)+(height*height));
 
-		width = Math.round(width *100.0)/100;
-		height = Math.round(height *100.0)/100;
+		String resolution = widthCookie.getValue() +" * "+ heightCookie.getValue();
+		double width = Double.parseDouble(widthCookie.getValue())/96;
 
-		String device = "Unidentified";
-		if(diagonal < 7)
+		String device;
+		if(width < 7)
 		{
 			device = "Mobile";
 		}
-		else if(diagonal < 13)
+		else if(width < 13)
 		{
 			device = "Tablet";
 		}
@@ -42,8 +37,10 @@ public class WebService {
 			device = "PC";
 		}
 
-		String response = device +";"+width+";"+height+";"+isTouchCookie.getValue();
+		String response = device +";"+resolution+";"+pixelCookie.getValue()+";"+isTouchCookie.getValue();
+
 		builder = Response.ok(response,MediaType.TEXT_HTML);
+
 		builder.header("Access-Control-Allow-Origin", "*");
 		builder.header("Access-Control-Max-Age", "3600");
 		builder.header("Access-Control-Allow-Methods", "POST");
