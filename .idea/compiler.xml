@@ -25,8 +25,8 @@
         <module name="captchaWebService" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="captchaWebService" target="1.6" />
+    <bytecodeTargetLevel target="1.6">
+      <module name="captchaWebService" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

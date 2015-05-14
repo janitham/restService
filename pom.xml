@@ -31,12 +31,20 @@
       <version>1.8</version>
     </dependency>
 
-      <dependency>
+
+    <dependency>
         <groupId>com.51degrees</groupId>
         <artifactId>51Degrees.detection.core </artifactId>
         <version>3.1.4.9</version>
       </dependency>
       <!-- etc/....-->
+
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-json</artifactId>
+      <version>1.8</version>
+    </dependency>
+
 
   </dependencies>
 
@@ -46,8 +54,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
     </plugins>
