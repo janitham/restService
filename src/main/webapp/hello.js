@@ -7,8 +7,9 @@ $(document).ready(function() {
         url: "http://localhost:8080/restData/rest/captcha/textres",
         dataType: "json"
     }).then(function(data) {
-       $('.greeting-id').append(data.id);
-       $('.greeting-content').append(data.content);
+       $('.captcha-name').append(data.captcha);
+       $('.captcha-width').append(data.width);
+        $('.captcha-height').append(data.height);
     });
 });
 

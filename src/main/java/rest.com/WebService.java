@@ -1,6 +1,4 @@
 package rest.com;
- 
-//import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
@@ -8,7 +6,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 //import javax.ws.rs.core.*;
 import java.io.IOException;
-//import javax.servlet.http.HttpServletResponse;
 
 @Path("/captcha")
 public class WebService {
@@ -53,20 +50,24 @@ public class WebService {
 
 
 	////{"id":1,"content":"Hello, World!"}
+	//follow below url and it shows how deserialize this response json
+	//url : http://localhost:8080/restData/index1.html
 	@GET
 	@Path("/textres")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Track getTrackInJSON() {
+	public Captcha getCaptchaInJSON() {
 
-		Track track = new Track();
-		track.setId(123456);
-		track.setContent("Hello, World!");
+		Captcha captcha = new Captcha();
+		captcha.captcha = "sweetcaptcha";
+		captcha.width=200;
+		captcha.height=300;
 
-		return track;
+		return captcha;
 
 	}
+}
 
-	@POST
+/*@POST
 	@Path("/textres")
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -74,19 +75,11 @@ public class WebService {
 						@FormParam("app_id") int app_id,
 						@FormParam("app_key") String app_key,
 						@FormParam("platform") String platform) throws IOException {
-		/*Todo todo = new Todo(id, summary);
-		if (description != null) {
-			todo.setDescription(description);
-		}
-		TodoDao.instance.getModel().put(id, todo);
-
-		servletResponse.sendRedirect("../create_todo.html");*/
 
 		return "ok";
-	}
+	}*/
 
 
-}
 
 /*
 * private static final String FILE_PATH = "c:\\mkyong-logo.png";
